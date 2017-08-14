@@ -53,10 +53,27 @@
                 android:orientation="vertical"
                 android:background="@color/windowBackground">
 
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/my_profile"
+                    android:textColor="@color/textColorSecondary"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    app:layout_columnSpan="4" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="18dp" />
+
                 <android.support.v7.widget.GridLayout
                     android:id="@+id/my_profile_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
                     app:columnCount="6">
 
                     <!-- Row 1 -->
@@ -67,7 +84,7 @@
 
                     <android.support.v4.widget.Space
                         android:layout_width="0dp"
-                        android:layout_height="20dp"
+                        android:layout_height="18dp"
                         app:layout_columnSpan="4" />
 
                     <android.support.v4.widget.Space
@@ -76,20 +93,6 @@
                         app:layout_rowSpan="6" />
 
                     <!-- Row 2 -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/my_profile"
-                        android:textColor="@color/textColorSecondary"
-                        app:layout_columnSpan="4" />
-
-                    <!-- Row 3 -->
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="36dp"
-                        app:layout_columnSpan="4" />
-
-                    <!-- Row 4 -->
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/avatar"
                         android:layout_width="@dimen/avatar_size_small"
@@ -118,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <!-- Row 5 -->
+                    <!-- Row 3 -->
                     <TextView
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
@@ -140,7 +143,7 @@
                         app:layout_gravity="right"
                         tools:text="(44)" />
 
-                    <!-- Row 6 -->
+                    <!-- Row 4 -->
                     <android.support.v4.widget.Space
                         android:layout_width="0dp"
                         android:layout_height="17dp"
@@ -193,7 +196,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:background="?android:selectableItemBackground">
 
                     <Space
                         android:layout_width="@dimen/activity_horizontal_margin"
