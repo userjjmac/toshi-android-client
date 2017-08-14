@@ -39,8 +39,8 @@
                 android:scaleType="fitCenter"
                 android:padding="16dp"
                 android:tint="@color/textColorContrast"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_arrow_back"/>
+                app:srcCompat="@drawable/ic_arrow_back"
+                style="@style/clickableBorderlessBackground"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="16dp"

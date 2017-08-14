@@ -37,10 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_arrow_back"
+            android:padding="16dp"
             android:tint="@color/textColorContrast"
-            android:padding="16dp" />
+            app:srcCompat="@drawable/ic_arrow_back"
+            style="@style/clickableBorderlessBackground"/>
 
     <TextView
         android:layout_width="wrap_content"

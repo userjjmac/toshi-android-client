@@ -44,8 +44,8 @@
                     android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
                     android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_clear"/>
+                    app:srcCompat="@drawable/ic_clear"
+                    style="@style/clickableBorderlessBackground"/>
 
                 <android.support.v4.widget.Space
                     android:layout_width="16dp"
