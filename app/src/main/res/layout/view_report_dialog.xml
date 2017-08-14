@@ -34,7 +34,8 @@
             android:paddingLeft="24dp"
             android:textSize="16sp"
             android:textColor="@color/textColorPrimary"
-            android:text="@string/report_message_spam"/>
+            android:text="@string/report_message_spam"
+            android:background="?android:selectableItemBackground"/>
 
         <TextView
             android:id="@+id/inappropriate"
@@ -44,7 +45,8 @@
             android:paddingLeft="24dp"
             android:textSize="16sp"
             android:textColor="@color/textColorPrimary"
-            android:text="@string/report_message_inappropriate"/>
+            android:text="@string/report_message_inappropriate"
+            android:background="?android:selectableItemBackground"/>
     </LinearLayout>
 
 </layout>
