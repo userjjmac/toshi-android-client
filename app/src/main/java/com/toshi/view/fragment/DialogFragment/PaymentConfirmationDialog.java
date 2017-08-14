@@ -42,18 +42,18 @@ public class PaymentConfirmationDialog extends BasePresenterDialogFragment<Payme
     public static final String PAYMENT_ADDRESS = "payment_address";
     public static final String PAYMENT_TYPE = "payment_type";
     public static final String TAG = "PaymentConfirmationDialog";
-    public static final String TOKEN_ID = "token_id";
+    public static final String TOSHI_ID = "toshi_id";
     public static final String UNSIGNED_TRANSACTION = "unsigned_transaction";
 
     private FragmentPaymentRequestConfirmationBinding binding;
     private OnPaymentConfirmationListener listener;
 
-    public static PaymentConfirmationDialog newInstanceTokenPayment(@NonNull final String tokenId,
+    public static PaymentConfirmationDialog newInstanceToshiPayment(@NonNull final String toshiId,
                                                                     @NonNull final String value,
                                                                     @Nullable final String memo) {
         final Bundle bundle = new Bundle();
-        bundle.putInt(CONFIRMATION_TYPE, PaymentConfirmationType.TOKEN);
-        bundle.putString(TOKEN_ID, tokenId);
+        bundle.putInt(CONFIRMATION_TYPE, PaymentConfirmationType.TOSHI);
+        bundle.putString(TOSHI_ID, toshiId);
         return newInstance(bundle, value, memo);
     }
 

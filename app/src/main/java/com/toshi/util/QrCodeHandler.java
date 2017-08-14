@@ -72,7 +72,7 @@ public class QrCodeHandler implements PaymentConfirmationDialog.OnPaymentConfirm
             final Subscription sub =
                     getUserFromPaymentAddress(payment.getAddress())
                     .subscribe(
-                            user -> showTokenPaymentConfirmationDialog(user.getTokenId(), payment),
+                            user -> showToshiPaymentConfirmationDialog(user.getToshiId(), payment),
                             __ -> showExternalPaymentConfirmationDialog(payment)
                     );
 
@@ -90,13 +90,13 @@ public class QrCodeHandler implements PaymentConfirmationDialog.OnPaymentConfirm
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    private void showTokenPaymentConfirmationDialog(final String tokenId, final QrCodePayment payment) {
+    private void showToshiPaymentConfirmationDialog(final String toshiId, final QrCodePayment payment) {
         if (this.activity == null) return;
         try {
             final PaymentConfirmationDialog dialog =
                     PaymentConfirmationDialog
-                            .newInstanceTokenPayment(
-                                    tokenId,
+                            .newInstanceToshiPayment(
+                                    toshiId,
                                     payment.getValue(),
                                     payment.getMemo()
                             );
@@ -146,13 +146,13 @@ public class QrCodeHandler implements PaymentConfirmationDialog.OnPaymentConfirm
             return;
         }
 
-        goToProfileView(user.getTokenId());
+        goToProfileView(user.getToshiId());
     }
 
-    private void goToProfileView(final String tokenId) {
+    private void goToProfileView(final String toshiId) {
         if (this.activity == null) return;
         final Intent intent = new Intent(this.activity, ViewUserActivity.class)
-                .putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, tokenId)
+                .putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, toshiId)
                 .putExtra(ViewUserActivity.EXTRA__PLAY_SCAN_SOUNDS, true);
         this.activity.startActivity(intent);
         this.activity.finish();
@@ -160,12 +160,12 @@ public class QrCodeHandler implements PaymentConfirmationDialog.OnPaymentConfirm
 
     private void handlePaymentQrCode(final QrCode qrCode) {
         try {
-            final QrCodePayment payment = qrCode.getTokenPayment();
+            final QrCodePayment payment = qrCode.getToshiPayment();
             final Subscription sub =
                     getUserByUsername(payment.getUsername())
                     .doOnSuccess(__ -> playScanSound())
                     .subscribe(
-                            user -> showTokenPaymentConfirmationDialog(user.getTokenId(), payment),
+                            user -> showToshiPaymentConfirmationDialog(user.getToshiId(), payment),
                             __ -> handleInvalidQrCode()
                     );
 
@@ -250,8 +250,8 @@ public class QrCodeHandler implements PaymentConfirmationDialog.OnPaymentConfirm
             return;
         }
 
-        if (type == PaymentConfirmationType.TOKEN) {
-            handleTokenPayment(bundle, payment);
+        if (type == PaymentConfirmationType.TOSHI) {
+            handleToshiPayment(bundle, payment);
             return;
         }
 
@@ -280,18 +280,18 @@ public class QrCodeHandler implements PaymentConfirmationDialog.OnPaymentConfirm
                 .sendExternalPayment(payment.getToAddress(), payment.getValue());
     }
 
-    private void handleTokenPayment(final Bundle bundle, final Payment payment) {
+    private void handleToshiPayment(final Bundle bundle, final Payment payment) {
         try {
-            final String tokenId = bundle.getString(PaymentConfirmationDialog.TOKEN_ID);
-            goToChatActivityWithPayment(tokenId, payment);
+            final String toshiId = bundle.getString(PaymentConfirmationDialog.TOSHI_ID);
+            goToChatActivityWithPayment(toshiId, payment);
         } catch (final InvalidQrCodePayment ex) {
             handleInvalidQrCode();
         }
     }
 
-    private void goToChatActivityWithPayment(final String tokenId, final Payment payment) throws InvalidQrCodePayment {
+    private void goToChatActivityWithPayment(final String toshiId, final Payment payment) throws InvalidQrCodePayment {
         final Intent intent = new Intent(this.activity, ChatActivity.class)
-                .putExtra(ChatActivity.EXTRA__THREAD_ID, tokenId)
+                .putExtra(ChatActivity.EXTRA__THREAD_ID, toshiId)
                 .putExtra(ChatActivity.EXTRA__PAYMENT_ACTION, PaymentType.TYPE_SEND)
                 .putExtra(ChatActivity.EXTRA__ETH_AMOUNT, payment.getValue())
                 .putExtra(ChatActivity.EXTRA__PLAY_SCAN_SOUNDS, true);

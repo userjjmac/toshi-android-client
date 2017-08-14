@@ -44,7 +44,7 @@ public class GlideOkHttpStack implements GlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide) {
-        final File cacheDir = new File(BaseApplication.get().getCacheDir(), "TokenImageCache");
+        final File cacheDir = new File(BaseApplication.get().getCacheDir(), "ToshiImageCache");
         final Cache cache = new Cache(cacheDir, MAX_SIZE);
 
         final OkHttpClient client =

@@ -31,8 +31,8 @@ import rx.Single;
 
 public class UserStore {
 
-    public Observable<User> loadForTokenId(final String tokenId) {
-        return Observable.fromCallable(() -> loadWhere("owner_address", tokenId));
+    public Observable<User> loadForToshiId(final String toshiId) {
+        return Observable.fromCallable(() -> loadWhere("owner_address", toshiId));
     }
 
     public User loadForPaymentAddress(final String address) {

@@ -188,7 +188,7 @@ public final class ChatPresenter implements Presenter<ChatActivity> {
             return;
         }
 
-        viewProfile(user.getTokenId());
+        viewProfile(user.getToshiId());
     }
 
     private void handleUpdatedMessage(final SofaMessage sofaMessage) {
@@ -422,11 +422,11 @@ public final class ChatPresenter implements Presenter<ChatActivity> {
         this.subscriptions.add(sub);
     }
 
-    private void loadUserRecipient(final String tokenId) {
+    private void loadUserRecipient(final String toshiId) {
         final Subscription sub = BaseApplication
                 .get()
                 .getRecipientManager()
-                .getUserFromTokenId(tokenId)
+                .getUserFromToshiId(toshiId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

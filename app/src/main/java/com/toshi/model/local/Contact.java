@@ -31,7 +31,7 @@ public class Contact extends RealmObject {
 
     public Contact(final User user) {
         this.user = user;
-        this.owner_address = user.getTokenId();
+        this.owner_address = user.getToshiId();
     }
 
     public String getOwnerAddress() {

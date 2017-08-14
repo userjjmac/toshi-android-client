@@ -229,7 +229,7 @@ public class SofaMessageSender {
         }
 
         try {
-            sendToSignal(receiver.getUser().getTokenId(), messageTask);
+            sendToSignal(receiver.getUser().getToshiId(), messageTask);
 
             if (saveMessageToDatabase) {
                 message.setSendState(SendState.STATE_SENT);
@@ -238,7 +238,7 @@ public class SofaMessageSender {
         } catch (final UntrustedIdentityException ue) {
             LogUtil.error(getClass(), "Keys have changed. " + ue);
             protocolStore.saveIdentity(
-                    new SignalProtocolAddress(receiver.getUser().getTokenId(), SignalServiceAddress.DEFAULT_DEVICE_ID),
+                    new SignalProtocolAddress(receiver.getUser().getToshiId(), SignalServiceAddress.DEFAULT_DEVICE_ID),
                     ue.getIdentityKey());
         } catch (final IOException ex) {
             LogUtil.error(getClass(), ex.toString());

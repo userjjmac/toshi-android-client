@@ -75,7 +75,7 @@ public class QrCode {
         return this.asUrl.getUsername();
     }
 
-    /* package */ QrCodePayment getTokenPayment() throws InvalidQrCodePayment {
+    /* package */ QrCodePayment getToshiPayment() throws InvalidQrCodePayment {
         if (!this.asUrl.isValid()) throw new InvalidQrCodePayment();
         final QrCodePayment payment = new QrCodePayment()
                 .setValue(this.asUrl.getAmount())

@@ -41,7 +41,7 @@ public class RatingHandler {
         final Review review = new Review()
                 .setRating(rating)
                 .setReview(reviewText)
-                .setReviewee(this.user.getTokenId());
+                .setReviewee(this.user.getToshiId());
 
         final Subscription sub =
                 submitReview(review)

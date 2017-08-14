@@ -18,11 +18,11 @@
 package com.toshi.model.local;
 
 public class Report {
-    private String token_id;
+    private String toshi_id;
     private String details;
 
-    public Report setUserAddress(final String tokenId) {
-        this.token_id = tokenId;
+    public Report setUserAddress(final String toshiId) {
+        this.toshi_id = toshiId;
         return this;
     }
 

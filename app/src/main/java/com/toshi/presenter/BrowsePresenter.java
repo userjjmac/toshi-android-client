@@ -131,7 +131,7 @@ public class BrowsePresenter implements Presenter<BrowseActivity> {
 
     private void handleItemClicked(final Object elem) {
         final Intent intent = new Intent(this.activity, ViewUserActivity.class)
-                .putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, ((ToshiEntity) elem).getTokenId());
+                .putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, ((ToshiEntity) elem).getToshiId());
         this.activity.startActivity(intent);
     }
 

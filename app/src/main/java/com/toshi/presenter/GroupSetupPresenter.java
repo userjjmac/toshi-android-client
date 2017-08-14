@@ -212,11 +212,11 @@ public class GroupSetupPresenter implements Presenter<GroupSetupActivity> {
         return this.activity.getIntent().getStringArrayListExtra(GroupSetupActivity.PARTICIPANTS);
     }
 
-    private Observable<User> fetchUser(final String tokenId) {
+    private Observable<User> fetchUser(final String toshiId) {
         return BaseApplication
                 .get()
                 .getRecipientManager()
-                .getUserFromTokenId(tokenId)
+                .getUserFromToshiId(toshiId)
                 .toObservable();
     }
 

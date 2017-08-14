@@ -61,7 +61,7 @@ public final class BaseApplication extends MultiDexApplication {
     }
 
     private void init() {
-        initTokenManager();
+        initToshiManager();
         initConnectivityMonitor();
     }
 
@@ -74,7 +74,7 @@ public final class BaseApplication extends MultiDexApplication {
         isConnectedSubject().onNext(NetworkChangeReceiver.getCurrentConnectivityStatus(this));
     }
 
-    private void initTokenManager() {
+    private void initToshiManager() {
         this.toshiManager = new ToshiManager();
     }
 

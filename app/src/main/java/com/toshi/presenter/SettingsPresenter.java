@@ -116,7 +116,7 @@ public final class SettingsPresenter implements
         }
         this.localUser = user;
         updateUi();
-        fetchUserReputation(this.localUser.getTokenId());
+        fetchUserReputation(this.localUser.getToshiId());
     }
 
     private void handleUserError(final Throwable throwable) {

@@ -204,7 +204,7 @@ public class SofaMessageReceiver {
         BaseApplication
                 .get()
                 .getRecipientManager()
-                .getUserFromTokenId(signalMessage.getSource())
+                .getUserFromToshiId(signalMessage.getSource())
                 .subscribe(
                         (sender) -> this.saveIncomingMessageToDatabase(sender, signalMessage),
                         ex -> LogUtil.e(getClass(), "Error getting user. " + ex)
@@ -302,7 +302,7 @@ public class SofaMessageReceiver {
         BaseApplication
                 .get()
                 .getRecipientManager()
-                .getUserFromTokenId(sender.getTokenId());
+                .getUserFromToshiId(sender.getToshiId());
     }
 
     private Single<String> generatePayloadWithLocalAmountEmbedded(final SofaMessage remoteMessage) {

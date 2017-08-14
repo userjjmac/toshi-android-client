@@ -141,7 +141,7 @@ public class SearchAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 final ToshiEntityViewHolder vh = (ToshiEntityViewHolder) holder;
                 final App app = this.apps.get(position);
 
-                vh.setTokenEntity(app)
+                vh.setToshiEntity(app)
                         .setOnClickListener(this.listener, app);
                 break;
             }

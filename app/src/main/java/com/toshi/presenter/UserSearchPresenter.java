@@ -191,13 +191,13 @@ public final class UserSearchPresenter
 
     private void goToProfileActivity(final User user) {
         final Intent intent = new Intent(this.activity, ViewUserActivity.class)
-                .putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, user.getTokenId());
+                .putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, user.getToshiId());
         goToActivity(intent);
     }
 
     private void goToChatActivity(final User user) {
         final Intent intent = new Intent(this.activity, ChatActivity.class)
-                .putExtra(ChatActivity.EXTRA__THREAD_ID, user.getTokenId());
+                .putExtra(ChatActivity.EXTRA__THREAD_ID, user.getToshiId());
         goToActivity(intent);
     }
 

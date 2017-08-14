@@ -60,7 +60,7 @@ public class RecipientManager {
 
     public Single<User> getUserFromUsername(final String username) {
         // It's the same endpoint
-        return getUserFromTokenId(username);
+        return getUserFromToshiId(username);
     }
 
     public Single<Group> getGroupFromId(final String id) {
@@ -70,15 +70,15 @@ public class RecipientManager {
                 .doOnError(t -> LogUtil.exception(getClass(), "getGroupFromId", t));
     }
 
-    public Single<User> getUserFromTokenId(final String tokenId) {
+    public Single<User> getUserFromToshiId(final String toshiId) {
         return Observable
                 .concat(
-                        this.userStore.loadForTokenId(tokenId),
-                        this.fetchAndCacheFromNetworkByTokenId(tokenId))
+                        this.userStore.loadForToshiId(toshiId),
+                        this.fetchAndCacheFromNetworkByToshiId(toshiId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .first(user -> user != null && !user.needsRefresh())
-                .doOnError(t -> LogUtil.exception(getClass(), "getUserFromTokenId", t))
+                .doOnError(t -> LogUtil.exception(getClass(), "getUserFromToshiId", t))
                 .toSingle();
     }
 
@@ -96,7 +96,7 @@ public class RecipientManager {
 
     }
 
-    private Observable<User> fetchAndCacheFromNetworkByTokenId(final String userAddress) {
+    private Observable<User> fetchAndCacheFromNetworkByToshiId(final String userAddress) {
         return IdService
                 .getApi()
                 .getUser(userAddress)

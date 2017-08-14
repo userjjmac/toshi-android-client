@@ -240,7 +240,7 @@ public class ChooseContactPresenter implements Presenter<ChooseContactsActivity>
 
     private void handleSendClicked() {
         final Intent intent = new Intent(activity, ChatActivity.class)
-                .putExtra(ChatActivity.EXTRA__THREAD_ID, recipientUser.getTokenId())
+                .putExtra(ChatActivity.EXTRA__THREAD_ID, recipientUser.getToshiId())
                 .putExtra(ChatActivity.EXTRA__PAYMENT_ACTION, paymentType)
                 .putExtra(ChatActivity.EXTRA__ETH_AMOUNT, encodedEthAmount);
 

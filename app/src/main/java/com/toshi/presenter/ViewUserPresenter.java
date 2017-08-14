@@ -131,7 +131,7 @@ public final class ViewUserPresenter implements
         return BaseApplication
                 .get()
                 .getRecipientManager()
-                .getUserFromTokenId(userAddress);
+                .getUserFromToshiId(userAddress);
     }
 
     private void fetchUserReputation() {
@@ -283,7 +283,7 @@ public final class ViewUserPresenter implements
 
     private void handleMessageContactButton(final View view) {
         final Intent intent = new Intent(this.activity, ChatActivity.class)
-                .putExtra(ChatActivity.EXTRA__THREAD_ID, this.user.getTokenId())
+                .putExtra(ChatActivity.EXTRA__THREAD_ID, this.user.getToshiId())
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.activity.startActivity(intent);
         this.activity.finish();
@@ -349,7 +349,7 @@ public final class ViewUserPresenter implements
     }
 
     public boolean shouldCreateOptionsMenu() {
-        final boolean isLocalUser = getLocalUser().getTokenId().equals(this.userAddress);
+        final boolean isLocalUser = getLocalUser().getToshiId().equals(this.userAddress);
         if (isLocalUser) {
             return false;
         }

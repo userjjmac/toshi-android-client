@@ -38,7 +38,7 @@ public class ContactStore {
             final Realm realm = BaseApplication.get().getRealm();
             final boolean result = realm
                     .where(Contact.class)
-                    .equalTo("owner_address", user.getTokenId())
+                    .equalTo("owner_address", user.getToshiId())
                     .findFirst() != null;
             realm.close();
             return result;
@@ -66,7 +66,7 @@ public class ContactStore {
             realm.beginTransaction();
             realm
                     .where(Contact.class)
-                    .equalTo("owner_address", user.getTokenId())
+                    .equalTo("owner_address", user.getToshiId())
                     .findFirst()
                     .deleteFromRealm();
             realm.commitTransaction();

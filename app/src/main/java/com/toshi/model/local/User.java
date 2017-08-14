@@ -27,7 +27,7 @@ import io.realm.annotations.PrimaryKey;
 public class User extends RealmObject implements ToshiEntity {
 
     @PrimaryKey
-    @Json(name = "token_id")
+    @Json(name = "toshi_id")
     private String owner_address;
     private String payment_address;
     private String username;
@@ -68,7 +68,7 @@ public class User extends RealmObject implements ToshiEntity {
     }
 
     @Override
-    public String getTokenId() {
+    public String getToshiId() {
         return owner_address;
     }
 
@@ -131,11 +131,11 @@ public class User extends RealmObject implements ToshiEntity {
         if (other == this) return true;
         if (!(other instanceof User)) return false;
         final User otherUser = (User) other;
-        return otherUser.getTokenId().equals(this.getTokenId());
+        return otherUser.getToshiId().equals(this.getToshiId());
     }
 
     @Override
     public int hashCode() {
-        return getTokenId().hashCode();
+        return getToshiId().hashCode();
     }
 }

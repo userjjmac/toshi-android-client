@@ -52,7 +52,7 @@ public class ToshiEntityViewHolder<T extends ToshiEntity> extends RecyclerView.V
         this.reviewCount = (TextView) itemView.findViewById(R.id.review_count);
     }
 
-    public ToshiEntityViewHolder setTokenEntity(final T elem) {
+    public ToshiEntityViewHolder setToshiEntity(final T elem) {
         ImageUtil.loadFromNetwork(elem.getAvatar(), this.avatar);
         this.displayName.setText(elem.getDisplayName());
         setInfo(elem);

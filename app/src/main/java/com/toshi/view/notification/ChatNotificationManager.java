@@ -66,7 +66,7 @@ public class ChatNotificationManager {
         BaseApplication
             .get()
             .getRecipientManager()
-            .getUserFromTokenId(signalMessage.getSource())
+            .getUserFromToshiId(signalMessage.getSource())
             .subscribe(
                     (user) -> handleUserLookup(user, signalMessage),
                     ChatNotificationManager::handleUserError
@@ -105,7 +105,7 @@ public class ChatNotificationManager {
             final Recipient sender,
             final String content) {
 
-        // Sender will be null if the transaction came from outside of the Token platform.
+        // Sender will be null if the transaction came from outside of the Toshi platform.
         final String notificationKey = sender == null ? ChatNotification.DEFAULT_TAG : sender.getThreadId();
 
         if (notificationKey.equals(currentlyOpenConversation) && !BaseApplication.get().isInBackground()) {

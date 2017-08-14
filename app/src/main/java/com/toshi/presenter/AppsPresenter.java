@@ -186,12 +186,12 @@ public class AppsPresenter implements Presenter<AppsFragment>{
 
     private void handleAppClicked(final Object elem) {
         if (this.fragment == null) return;
-        startProfileActivity(((ToshiEntity)elem).getTokenId());
+        startProfileActivity(((ToshiEntity)elem).getToshiId());
     }
 
     private void handleUserClicked(final Object elem) {
         if (this.fragment == null) return;
-        startProfileActivity(((ToshiEntity)elem).getTokenId());
+        startProfileActivity(((ToshiEntity)elem).getToshiId());
     }
 
     private void startProfileActivity(final String userAddress) {

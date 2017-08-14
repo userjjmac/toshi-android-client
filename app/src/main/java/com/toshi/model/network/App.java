@@ -22,6 +22,7 @@ import com.toshi.model.local.ToshiEntity;
 import com.toshi.view.adapter.SearchAppAdapter;
 
 public class App implements ToshiEntity {
+    private String toshi_id;
     private String about;
     private String name;
     private String avatar;
@@ -30,7 +31,6 @@ public class App implements ToshiEntity {
     @Json(name = "public")
     private boolean is_public;
     private String username;
-    private String token_id;
     private Double reputation_score;
     private Double average_rating;
     private int review_count;
@@ -54,8 +54,8 @@ public class App implements ToshiEntity {
     }
 
     @Override
-    public String getTokenId() {
-        return token_id;
+    public String getToshiId() {
+        return toshi_id;
     }
 
     public String getPaymentAddress() {

@@ -89,7 +89,7 @@ public class GroupParticipantsPresenter implements Presenter<GroupParticipantsAc
     private ArrayList<String> transformsUserListToIdList(final List<User> participants) {
         final ArrayList<String> idList = new ArrayList<>();
         for (final User user : participants) {
-            idList.add(user.getTokenId());
+            idList.add(user.getToshiId());
         }
         return idList;
     }

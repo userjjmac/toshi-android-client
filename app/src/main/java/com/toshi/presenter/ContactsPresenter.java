@@ -127,7 +127,7 @@ public final class ContactsPresenter implements
     @Override
     public void onItemClick(final User clickedUser) {
         final Intent intent = new Intent(this.fragment.getActivity(), ViewUserActivity.class);
-        intent.putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, clickedUser.getTokenId());
+        intent.putExtra(ViewUserActivity.EXTRA__USER_ADDRESS, clickedUser.getToshiId());
         this.fragment.startActivity(intent);
     }
 

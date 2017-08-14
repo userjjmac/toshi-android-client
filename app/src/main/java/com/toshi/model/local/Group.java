@@ -87,7 +87,7 @@ public class Group extends RealmObject {
                 .flatMap( uid -> BaseApplication
                             .get()
                             .getRecipientManager()
-                            .getUserFromTokenId(uid)
+                            .getUserFromToshiId(uid)
                             .toObservable()
                 )
                 .toList()
@@ -154,7 +154,7 @@ public class Group extends RealmObject {
         }
         final List<String> ids = new LinkedList<>();
         for (final User member : this.members) {
-            ids.add(member.getTokenId());
+            ids.add(member.getToshiId());
         }
         return ids;
     }
@@ -165,7 +165,7 @@ public class Group extends RealmObject {
         }
         final List<SignalServiceAddress> ids = new LinkedList<>();
         for (final User member : this.members) {
-            ids.add(new SignalServiceAddress(member.getTokenId()));
+            ids.add(new SignalServiceAddress(member.getToshiId()));
         }
         return ids;
     }

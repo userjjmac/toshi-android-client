@@ -41,10 +41,10 @@ public class AppsManager {
                 .flatMap((response) -> Observable.just(response.body().getApps()));
     }
 
-    public Single<App> getApp(final String tokenId) {
+    public Single<App> getApp(final String toshiId) {
         return DirectoryService
                 .getApi()
-                .getApp(tokenId)
+                .getApp(toshiId)
                 .toObservable()
                 .first((response) -> response.code() == 200)
                 .flatMap((response) -> Observable.just(response.body()))

@@ -59,7 +59,7 @@ public class BrowseAdapter<T extends ToshiEntity> extends RecyclerView.Adapter<T
     @Override
     public void onBindViewHolder(ToshiEntityViewHolder holder, int position) {
         final ToshiEntity elem = this.elems.get(position);
-        holder.setTokenEntity(elem)
+        holder.setToshiEntity(elem)
                 .setOnClickListener(this.listener, elem);
     }
 

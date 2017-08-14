@@ -137,7 +137,7 @@ public final class ViewProfilePresenter implements Presenter<ViewProfileActivity
         }
         this.localUser = user;
         updateView();
-        fetchUserReputation(user.getTokenId());
+        fetchUserReputation(user.getToshiId());
     }
 
     private void handleUserError(final Throwable throwable) {

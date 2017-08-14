@@ -21,9 +21,9 @@ package com.toshi.view.fragment.DialogFragment;
 import android.support.annotation.IntDef;
 
 public final class PaymentConfirmationType {
-    @IntDef({TOKEN, EXTERNAL, WEB})
+    @IntDef({TOSHI, EXTERNAL, WEB})
     public @interface Type {}
-    public static final int TOKEN = 1;
+    public static final int TOSHI = 1;
     public static final int EXTERNAL = 2;
     public static final int WEB = 3;
 }

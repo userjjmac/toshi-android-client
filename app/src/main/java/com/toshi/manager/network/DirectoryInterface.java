@@ -38,6 +38,6 @@ public interface DirectoryInterface {
     @GET("/v1/search/apps/")
     Observable<Response<Apps>> searchApps(@Query("query") String searchString);
 
-    @GET("/v1/apps/{token_id}")
-    Single<Response<App>> getApp(@Path("token_id") String tokenId);
+    @GET("/v1/apps/{toshi_id}")
+    Single<Response<App>> getApp(@Path("toshi_id") String toshiId);
 }

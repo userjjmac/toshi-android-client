@@ -35,9 +35,9 @@ import okio.Buffer;
 public class SigningInterceptor implements Interceptor {
 
     private final String TIMESTAMP_QUERY_PARAMETER = "timestamp";
-    private final String ADDRESS_HEADER = "Token-ID-Address";
-    private final String SIGNATURE_HEADER = "Token-Signature";
-    private final String TIMESTAMP_HEADER = "Token-Timestamp";
+    private final String ADDRESS_HEADER = "Toshi-ID-Address";
+    private final String SIGNATURE_HEADER = "Toshi-Signature";
+    private final String TIMESTAMP_HEADER = "Toshi-Timestamp";
 
     @Override
     public Response intercept(final Chain chain) throws IOException {

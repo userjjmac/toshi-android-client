@@ -30,7 +30,7 @@ public class Recipient extends RealmObject {
     public Recipient() {}
 
     public Recipient(final User user) {
-        this.id = user.getTokenId();
+        this.id = user.getToshiId();
         this.user = user;
     }
 

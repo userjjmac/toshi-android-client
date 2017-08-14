@@ -162,7 +162,7 @@ public class UserManager {
     private void updateCurrentUser(final User user) {
         prefs
             .edit()
-            .putString(USER_ID, user.getTokenId())
+            .putString(USER_ID, user.getToshiId())
             .apply();
         this.userSubject.onNext(user);
     }

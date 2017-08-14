@@ -52,7 +52,7 @@ public class PaymentRequestConfirmPresenter implements Presenter<PaymentConfirma
     private String encodedEthAmount;
     private String memo;
     private String paymentAddress;
-    private String tokenId;
+    private String toshiId;
     private @PaymentType.Type int paymentType;
 
     @Override
@@ -107,7 +107,7 @@ public class PaymentRequestConfirmPresenter implements Presenter<PaymentConfirma
     @SuppressWarnings("WrongConstant")
     private void processBundleData() {
         this.bundle = this.view.getArguments();
-        this.tokenId = this.bundle.getString(PaymentConfirmationDialog.TOKEN_ID);
+        this.toshiId = this.bundle.getString(PaymentConfirmationDialog.TOSHI_ID);
         this.paymentAddress = this.bundle.getString(PaymentConfirmationDialog.PAYMENT_ADDRESS);
         this.encodedEthAmount = this.bundle.getString(PaymentConfirmationDialog.ETH_AMOUNT);
         this.memo = this.bundle.getString(PaymentConfirmationDialog.MEMO);
@@ -115,12 +115,12 @@ public class PaymentRequestConfirmPresenter implements Presenter<PaymentConfirma
     }
 
     private void tryLoadUser() {
-        if (this.tokenId == null) return;
+        if (this.toshiId == null) return;
         final Subscription sub =
                 BaseApplication
                 .get()
                 .getRecipientManager()
-                .getUserFromTokenId(this.tokenId)
+                .getUserFromToshiId(this.toshiId)
                 .doOnSuccess(user -> this.user = user)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

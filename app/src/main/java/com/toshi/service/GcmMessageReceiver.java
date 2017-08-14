@@ -128,7 +128,7 @@ public class GcmMessageReceiver extends GcmListenerService {
                         BaseApplication
                         .get()
                         .getRecipientManager()
-                        .isUserBlocked(user.getTokenId())
+                        .isUserBlocked(user.getToshiId())
                 );
     }
 
