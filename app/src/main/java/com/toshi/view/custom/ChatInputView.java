@@ -183,13 +183,11 @@ public class ChatInputView extends LinearLayout {
     private void hideSendButton() {
         final ImageButton sendButton = (ImageButton) findViewById(R.id.send_button);
         final Space sendSpacing = (Space) findViewById(R.id.send_spacing);
+        sendButton.setVisibility(View.GONE);
+        sendSpacing.setVisibility(View.VISIBLE);
         ViewCompat.animate(sendButton)
                 .alpha(0f)
-                .setDuration(50)
-                .withEndAction(() -> {
-                    sendButton.setVisibility(View.GONE);
-                    sendSpacing.setVisibility(View.VISIBLE);
-                });
+                .setDuration(50);
     }
 
     private void showAttachmentButton() {
