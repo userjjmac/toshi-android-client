@@ -32,7 +32,7 @@ public class RatingHandler {
     public void rateUser(final User user) {
         if (user == null) return;
         this.user = user;
-        this.rateDialog = RateDialog.newInstance(this.user.getUsername());
+        this.rateDialog = RateDialog.newInstance();
         this.rateDialog.setOnRateDialogClickListener(this::onRateClicked);
         this.rateDialog.show(this.activity.getSupportFragmentManager(), RateDialog.TAG);
     }

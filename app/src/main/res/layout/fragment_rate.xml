@@ -52,12 +52,14 @@
 
         <android.support.v4.widget.Space
             android:layout_width="0dp"
-            android:layout_height="12dp" />
+            android:layout_height="18dp" />
 
         <EditText
             android:id="@+id/review_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:textSize="16sp"
@@ -70,7 +72,7 @@
 
         <android.support.v4.widget.Space
             android:layout_width="0dp"
-            android:layout_height="29dp" />
+            android:layout_height="37dp" />
         
         <LinearLayout
             android:layout_width="match_parent"

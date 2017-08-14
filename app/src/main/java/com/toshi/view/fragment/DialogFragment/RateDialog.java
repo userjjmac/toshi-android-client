@@ -34,12 +34,9 @@ import com.toshi.view.BaseApplication;
 public class RateDialog extends DialogFragment {
 
     public static final String TAG = "RateDialog";
-    public static final String USERNAME = "username";
 
     private FragmentRateBinding binding;
-    private String username;
     private int rating;
-    private String review;
     public OnRateDialogClickListener listener;
 
     public interface OnRateDialogClickListener {
@@ -50,12 +47,8 @@ public class RateDialog extends DialogFragment {
         this.listener = listener;
     }
 
-    public static RateDialog newInstance(final String username) {
-        final Bundle bundle = new Bundle();
-        bundle.putString(USERNAME, username);
-        final RateDialog fragment = new RateDialog();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RateDialog newInstance() {
+        return new RateDialog();
     }
 
     @NonNull
@@ -72,18 +65,13 @@ public class RateDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rate, container, false);
-        getBundleData();
         initView();
         initClickListeners();
         return this.binding.getRoot();
     }
 
-    private void getBundleData() {
-        this.username = this.getArguments().getString(USERNAME);
-    }
-
     private void initView() {
-        final String title = BaseApplication.get().getString(R.string.review_dialog_title, this.username);
+        final String title = BaseApplication.get().getString(R.string.rate_this_user);
         this.binding.title.setText(title);
     }
 
