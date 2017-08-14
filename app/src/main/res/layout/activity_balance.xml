@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:textColor="@color/textColorSecondary"
+                    android:textColor="@color/subTitleTextColor"
                     android:text="@string/balance"/>
 
                 <android.support.v4.widget.Space
@@ -85,7 +85,7 @@
                 <LinearLayout
                     android:id="@+id/balance_container"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="52dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
@@ -130,16 +130,23 @@
                     android:id="@+id/send_money"
                     style="@style/NoPaddingButton"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="52dp"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:text="@string/send_money" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:background="@color/divider" />
 
                 <Button
                     android:id="@+id/deposit_money"
                     style="@style/NoPaddingButton"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="52dp"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:text="@string/deposit_money" />
