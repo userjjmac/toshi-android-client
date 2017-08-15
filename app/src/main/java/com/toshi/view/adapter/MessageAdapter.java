@@ -64,6 +64,7 @@ public final class MessageAdapter extends RecyclerView.Adapter<RecyclerView.View
     private OnItemClickListener<String> onUsernameClickListener;
     private OnItemClickListener<String> onImageClickListener;
     private OnItemClickListener<String> onFileClickListener;
+    private OnItemClickListener<SofaMessage> onResendListener;
     private Recipient recipient;
 
     public MessageAdapter() {
@@ -92,6 +93,11 @@ public final class MessageAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public final MessageAdapter addOnFileClickListener(final OnItemClickListener<String> listener) {
         this.onFileClickListener = listener;
+        return this;
+    }
+
+    public final MessageAdapter addOnResendListener(final OnItemClickListener<SofaMessage> listener) {
+        this.onResendListener = listener;
         return this;
     }
 
@@ -245,6 +251,7 @@ public final class MessageAdapter extends RecyclerView.Adapter<RecyclerView.View
                         .setSendState(sofaMessage.getSendState())
                         .setChainPosition(chainPosition)
                         .setIsSentByRemoteUser(isRemote)
+                        .setOnResendListener(this.onResendListener, sofaMessage)
                         .draw()
                         .setClickableUsernames(this.onUsernameClickListener);
                 break;

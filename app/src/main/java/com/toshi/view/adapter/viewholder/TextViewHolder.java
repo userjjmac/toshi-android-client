@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.toshi.R;
 import com.toshi.model.local.ChainPosition;
 import com.toshi.model.local.SendState;
+import com.toshi.model.sofa.SofaMessage;
 import com.toshi.util.ImageUtil;
 import com.toshi.view.adapter.listeners.OnItemClickListener;
 import com.vdurmont.emoji.EmojiParser;
@@ -90,6 +91,14 @@ public final class TextViewHolder extends RecyclerView.ViewHolder {
 
     public TextViewHolder setIsSentByRemoteUser(final boolean isSentByRemoteUser) {
         this.isRemote = isSentByRemoteUser;
+        return this;
+    }
+
+    public TextViewHolder setOnResendListener(final OnItemClickListener<SofaMessage> listener,
+                                              final SofaMessage sofaMessage) {
+        if (this.sendState == SendState.STATE_PENDING) {
+            this.itemView.setOnClickListener(v -> listener.onItemClick(sofaMessage));
+        }
         return this;
     }
 

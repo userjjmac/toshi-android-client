@@ -36,6 +36,11 @@ public class PendingMessage extends RealmObject {
         return receiver;
     }
 
+    public PendingMessage setPrivateKey(final String privateKey) {
+        this.privateKey = privateKey;
+        return this;
+    }
+
     public PendingMessage setReceiver(final Recipient receiver) {
         this.receiver = receiver;
         return this;

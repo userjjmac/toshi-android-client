@@ -23,15 +23,13 @@ import com.toshi.model.local.Recipient;
 import com.toshi.model.sofa.SofaMessage;
 import com.toshi.view.BaseApplication;
 
-import java.util.List;
-
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class PendingMessageStore {
 
     public void save(final Recipient receiver, final SofaMessage message) {
         final PendingMessage pendingMessage = new PendingMessage()
+                .setPrivateKey(message.getPrivateKey())
                 .setReceiver(receiver)
                 .setSofaMessage(message);
 
@@ -42,17 +40,25 @@ public class PendingMessageStore {
         realm.close();
     }
 
-    // Gets, and removes all messages. After calling this any pending messages will be removed
-    public List<PendingMessage> fetchAllPendingMessages() {
+    public PendingMessage fetchPendingMessage(final SofaMessage sofaMessage) {
         final Realm realm = BaseApplication.get().getRealm();
-        realm.beginTransaction();
-        final RealmResults<PendingMessage> result = realm
+        final PendingMessage result = realm
                 .where(PendingMessage.class)
-                .findAll();
-        final List<PendingMessage> pendingMessages = realm.copyFromRealm(result);
-        result.deleteAllFromRealm();
+                .equalTo("privateKey", sofaMessage.getPrivateKey())
+                .findFirst();
+
+        if (result == null) {
+            realm.close();
+            return null;
+        }
+
+        final PendingMessage pendingMessage = realm.copyFromRealm(result);
+
+        realm.beginTransaction();
+        result.deleteFromRealm();
         realm.commitTransaction();
         realm.close();
-        return pendingMessages;
+
+        return pendingMessage;
     }
 }

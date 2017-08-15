@@ -180,7 +180,6 @@ public final class SofaMessageManager {
         initMessageReceiver();
         initMessageSender();
         initRegistrationTask();
-        attachSubscribers();
     }
 
     private void generateStores() {
@@ -239,20 +238,8 @@ public final class SofaMessageManager {
         this.sofaGcmRegister.setGcmToken(token);
     }
 
-    private void attachSubscribers() {
-        BaseApplication
-                .get()
-                .isConnectedSubject()
-                .filter(isConnected -> isConnected)
-                .onErrorReturn(__ -> false)
-                .subscribe(
-                        isConnected -> this.messageSender.sendPendingMessages(),
-                        this::handleConnectionStateError
-                );
-    }
-
-    private void handleConnectionStateError(final Throwable throwable) {
-        LogUtil.exception(getClass(), "Error during checking connection state", throwable);
+    public void resendPendingMessage(final SofaMessage sofaMessage) {
+        this.messageSender.sendPendingMessage(sofaMessage);
     }
 
     public DecryptedSignalMessage fetchLatestMessage() throws TimeoutException {

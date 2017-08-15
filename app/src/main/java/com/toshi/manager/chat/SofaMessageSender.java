@@ -54,6 +54,7 @@ import java.util.List;
 
 import rx.Single;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import rx.subscriptions.CompositeSubscription;
@@ -138,15 +139,21 @@ public class SofaMessageSender {
         this.messageQueue.onNext(messageTask);
     }
 
-    public void sendPendingMessages() {
-        final List<PendingMessage> pendingMessages = this.pendingMessageStore.fetchAllPendingMessages();
-        for (final PendingMessage pendingMessage : pendingMessages) {
-            final SofaMessageTask messageTask = new SofaMessageTask(
-                    pendingMessage.getReceiver(),
-                    pendingMessage.getSofaMessage(),
-                    SofaMessageTask.SEND_AND_SAVE);
-            addNewTask(messageTask);
-        }
+    public void sendPendingMessage(final SofaMessage sofaMessage) {
+        Single.fromCallable(() -> this.pendingMessageStore.fetchPendingMessage(sofaMessage))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handlePendingMessage);
+    }
+
+    private void handlePendingMessage(final PendingMessage pendingMessage) {
+        if (pendingMessage == null) return;
+
+        final SofaMessageTask messageTask = new SofaMessageTask(
+                pendingMessage.getReceiver(),
+                pendingMessage.getSofaMessage(),
+                SofaMessageTask.SEND_AND_SAVE);
+        addNewTask(messageTask);
     }
 
     public Single<Group> createGroup(final Group group) {
