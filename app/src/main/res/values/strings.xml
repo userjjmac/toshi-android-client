@@ -253,4 +253,7 @@
     <string name="how_does_it_work">How does it work?</string>
     <string name="sign_in_info_message">To sign in to Toshi you need to enter the Passphrase that was given to you when you secured your account. The Passphrase consists of 12 words and is used to secure and identify your account.\n\nYour account exists anonymously on the Ethereum blockchain, this means we don\'t have access to your data. The 12-word Passphrase is the only way to Sign in to your account. If you have lost the Passphrase or have not properly finished the setup there is no way to recover your account.</string>
     <string name="no_suggestion_found">No words that starts with ‘%s\' are valid.</string>
+    <string name="balance_dialog_title">You\'re at risk!</string>
+    <string name="balance_dialog_body">You haven\'t set up your passphrase yet. Without it you risk losing money.</string>
+    <string name="setup">Setup</string>
 </resources>

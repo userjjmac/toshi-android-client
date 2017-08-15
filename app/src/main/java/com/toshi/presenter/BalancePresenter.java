@@ -18,14 +18,20 @@
 package com.toshi.presenter;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 
+import com.toshi.R;
 import com.toshi.model.local.ActivityResultHolder;
 import com.toshi.model.network.Balance;
+import com.toshi.util.DialogUtil;
 import com.toshi.util.LogUtil;
 import com.toshi.util.PaymentType;
+import com.toshi.util.SharedPrefsUtil;
 import com.toshi.view.BaseApplication;
 import com.toshi.view.activity.AmountActivity;
+import com.toshi.view.activity.BackupPhraseInfoActivity;
 import com.toshi.view.activity.BalanceActivity;
 import com.toshi.view.activity.DepositActivity;
 import com.toshi.view.activity.SendActivity;
@@ -41,7 +47,7 @@ public class BalancePresenter implements Presenter<BalanceActivity> {
     private BalanceActivity activity;
     private CompositeSubscription subscriptions;
     private boolean firstTimeAttaching = true;
-
+    private AlertDialog warningDialog;
 
     @Override
     public void onViewAttached(BalanceActivity view) {
@@ -60,8 +66,32 @@ public class BalancePresenter implements Presenter<BalanceActivity> {
     }
 
     private void initShortLivingObjects() {
+        showWarningDialogIfNotBackedUp();
         initClickListeners();
         attachBalanceSubscriber();
+    }
+
+    private void showWarningDialogIfNotBackedUp() {
+        if (SharedPrefsUtil.hasBackedUpPhrase()) return;
+
+        final AlertDialog.Builder builder =
+                DialogUtil.getBaseDialog(
+                        this.activity,
+                        R.string.balance_dialog_title,
+                        R.string.balance_dialog_body,
+                        R.string.setup,
+                        R.string.cancel,
+                        (dialog, __) -> handlePositiveButtonClicked(dialog)
+                );
+
+        this.warningDialog = builder.create();
+        this.warningDialog.show();
+    }
+
+    private void handlePositiveButtonClicked(final DialogInterface dialog) {
+        dialog.dismiss();
+        final Intent intent = new Intent(this.activity, BackupPhraseInfoActivity.class);
+        this.activity.startActivity(intent);
     }
 
     private void initClickListeners() {
@@ -130,8 +160,16 @@ public class BalancePresenter implements Presenter<BalanceActivity> {
 
     @Override
     public void onViewDetached() {
+        closeDialog();
         this.subscriptions.clear();
         this.activity = null;
+    }
+
+    private void closeDialog() {
+        if (this.warningDialog != null) {
+            this.warningDialog.dismiss();
+            this.warningDialog = null;
+        }
     }
 
     @Override
