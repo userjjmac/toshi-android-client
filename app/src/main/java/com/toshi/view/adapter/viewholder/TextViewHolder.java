@@ -96,7 +96,7 @@ public final class TextViewHolder extends RecyclerView.ViewHolder {
 
     public TextViewHolder setOnResendListener(final OnItemClickListener<SofaMessage> listener,
                                               final SofaMessage sofaMessage) {
-        if (this.sendState == SendState.STATE_PENDING) {
+        if (this.sendState == SendState.STATE_PENDING || this.sendState == SendState.STATE_FAILED) {
             this.itemView.setOnClickListener(v -> listener.onItemClick(sofaMessage));
         }
         return this;

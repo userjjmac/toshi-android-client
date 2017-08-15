@@ -252,6 +252,7 @@ public class SofaMessageSender {
             if (saveMessageToDatabase) {
                 message.setSendState(SendState.STATE_FAILED);
                 updateExistingMessage(receiver, message);
+                savePendingMessage(receiver, message);
             }
         }
     }
