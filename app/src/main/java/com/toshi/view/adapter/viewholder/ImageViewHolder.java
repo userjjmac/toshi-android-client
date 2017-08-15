@@ -21,7 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.toshi.R;
 import com.toshi.model.local.SendState;
@@ -37,8 +37,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public final class ImageViewHolder extends RecyclerView.ViewHolder {
 
     private @Nullable CircleImageView avatar;
-    private @Nullable TextView sentStatusMessage;
+    private @Nullable ImageView sentStatus;
     private @NonNull RoundCornersImageView image;
+
     private @SendState.State int sendState;
     private String attachmentFilePath;
     private String avatarUri;
@@ -46,8 +47,8 @@ public final class ImageViewHolder extends RecyclerView.ViewHolder {
     public ImageViewHolder(final View v) {
         super(v);
         this.avatar = (CircleImageView) v.findViewById(R.id.avatar);
-        this.sentStatusMessage = (TextView) v.findViewById(R.id.sent_status_message);
         this.image = (RoundCornersImageView) v.findViewById(R.id.image);
+        this.sentStatus = (ImageView) v.findViewById(R.id.sent_status);
     }
 
     public ImageViewHolder setAvatarUri(final String uri) {
@@ -55,8 +56,8 @@ public final class ImageViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public ImageViewHolder setSendState(final @SendState.State int sendState) {
-        this.sendState = sendState;
+    public ImageViewHolder setSendState(final @SendState.State int sendStatus) {
+        this.sendState = sendStatus;
         return this;
     }
 
@@ -95,17 +96,11 @@ public final class ImageViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setSendState() {
-        if (this.sentStatusMessage == null) {
-            return;
-        }
-
-        this.sentStatusMessage.setVisibility(View.GONE);
-        if (this.sendState == SendState.STATE_FAILED || this.sendState == SendState.STATE_PENDING) {
-            this.sentStatusMessage.setVisibility(View.VISIBLE);
-            this.sentStatusMessage.setText(this.sendState == SendState.STATE_FAILED
-                    ? R.string.error__message_failed
-                    : R.string.error__message_pending);
-        }
+        if (sentStatus == null) return;
+        final int visibility = this.sendState == SendState.STATE_FAILED || this.sendState == SendState.STATE_PENDING
+                ? View.VISIBLE
+                : View.GONE;
+        this.sentStatus.setVisibility(visibility);
     }
 
     public ImageViewHolder setClickableImage(final OnItemClickListener<String> listener, final String filePath) {

@@ -273,6 +273,7 @@ public final class MessageAdapter extends RecyclerView.Adapter<RecyclerView.View
                 final FileViewHolder vh = (FileViewHolder) holder;
                 vh
                         .setAttachmentPath(sofaMessage.getAttachmentFilePath())
+                        .setSendState(sofaMessage.getSendState())
                         .setAvatarUri(sofaMessage.getSenderAvatar())
                         .setOnClickListener(this.onFileClickListener, sofaMessage.getAttachmentFilePath())
                         .setOnResendListener(this.onResendListener, sofaMessage)

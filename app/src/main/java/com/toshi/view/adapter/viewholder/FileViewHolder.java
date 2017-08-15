@@ -40,9 +40,11 @@ public class FileViewHolder extends RecyclerView.ViewHolder {
     private @NonNull TextView displayName;
     private @NonNull TextView fileSize;
     private @Nullable ImageView avatar;
+    private @Nullable ImageView sentStatus;
 
     private String path;
     private String avatarUri;
+    private @SendState.State int sendState;
 
     public FileViewHolder(View v) {
         super(v);
@@ -50,6 +52,7 @@ public class FileViewHolder extends RecyclerView.ViewHolder {
         this.displayName = (TextView) v.findViewById(R.id.display_name);
         this.fileSize = (TextView) v.findViewById(R.id.file_size);
         this.avatar = (ImageView) v.findViewById(R.id.avatar);
+        this.sentStatus = (ImageView) v.findViewById(R.id.sent_status);
     }
 
     public FileViewHolder setAttachmentPath(final String path) {
@@ -62,9 +65,15 @@ public class FileViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public FileViewHolder setSendState(final @SendState.State int sendStatus) {
+        this.sendState = sendStatus;
+        return this;
+    }
+
     public FileViewHolder draw() {
         setPath(this.path);
         renderAvatar();
+        setSendState();
         return this;
     }
 
@@ -95,5 +104,13 @@ public class FileViewHolder extends RecyclerView.ViewHolder {
             this.itemView.setOnClickListener(__ -> listener.onItemClick(sofaMessage));
         }
         return this;
+    }
+
+    private void setSendState() {
+        if (this.sentStatus == null) return;
+        final int visibility = this.sendState == SendState.STATE_FAILED || this.sendState == SendState.STATE_PENDING
+                ? View.VISIBLE
+                : View.GONE;
+        this.sentStatus.setVisibility(visibility);
     }
 }
