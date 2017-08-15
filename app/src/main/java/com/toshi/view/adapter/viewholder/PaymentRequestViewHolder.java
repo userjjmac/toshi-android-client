@@ -30,6 +30,7 @@ import com.toshi.R;
 import com.toshi.model.local.SendState;
 import com.toshi.model.local.User;
 import com.toshi.model.sofa.PaymentRequest;
+import com.toshi.model.sofa.SofaMessage;
 import com.toshi.util.EthUtil;
 import com.toshi.util.ImageUtil;
 import com.toshi.view.BaseApplication;
@@ -96,6 +97,14 @@ public final class PaymentRequestViewHolder extends RecyclerView.ViewHolder {
 
     public PaymentRequestViewHolder setOnRejectListener(final OnItemClickListener<Integer> onRejectListener) {
         this.onRejectListener = onRejectListener;
+        return this;
+    }
+
+    public PaymentRequestViewHolder setOnResendListener(final OnItemClickListener<SofaMessage> listener,
+                                              final SofaMessage sofaMessage) {
+        if (this.sendState == SendState.STATE_PENDING || this.sendState == SendState.STATE_FAILED) {
+            this.itemView.setOnClickListener(__ -> listener.onItemClick(sofaMessage));
+        }
         return this;
     }
 

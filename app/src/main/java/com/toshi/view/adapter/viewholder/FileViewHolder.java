@@ -27,6 +27,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.toshi.R;
+import com.toshi.model.local.SendState;
+import com.toshi.model.sofa.SofaMessage;
 import com.toshi.util.FileUtil;
 import com.toshi.util.ImageUtil;
 import com.toshi.view.BaseApplication;
@@ -83,6 +85,15 @@ public class FileViewHolder extends RecyclerView.ViewHolder {
     public FileViewHolder setOnClickListener(final OnItemClickListener<String> listener,
                                              final String attachmentPath) {
         this.wrapper.setOnClickListener(__ -> listener.onItemClick(attachmentPath));
+        return this;
+    }
+
+    public FileViewHolder setOnResendListener(final OnItemClickListener<SofaMessage> listener,
+                                              final SofaMessage sofaMessage) {
+        final @SendState.State int sendState = sofaMessage.getSendState();
+        if (sendState == SendState.STATE_PENDING || sendState == SendState.STATE_FAILED) {
+            this.itemView.setOnClickListener(__ -> listener.onItemClick(sofaMessage));
+        }
         return this;
     }
 }

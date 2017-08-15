@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.toshi.R;
 import com.toshi.model.local.SendState;
+import com.toshi.model.sofa.SofaMessage;
 import com.toshi.util.ImageUtil;
 import com.toshi.view.adapter.listeners.OnItemClickListener;
 import com.toshi.view.custom.RoundCornersImageView;
@@ -61,6 +62,14 @@ public final class ImageViewHolder extends RecyclerView.ViewHolder {
 
     public ImageViewHolder setAttachmentFilePath(final String filePath) {
         this.attachmentFilePath = filePath;
+        return this;
+    }
+
+    public ImageViewHolder setOnResendListener(final OnItemClickListener<SofaMessage> listener,
+                                              final SofaMessage sofaMessage) {
+        if (this.sendState == SendState.STATE_PENDING || this.sendState == SendState.STATE_FAILED) {
+            this.itemView.setOnClickListener(v -> listener.onItemClick(sofaMessage));
+        }
         return this;
     }
 
