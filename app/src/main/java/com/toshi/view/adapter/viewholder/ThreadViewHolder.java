@@ -36,6 +36,8 @@ import static android.view.View.VISIBLE;
 
 public class ThreadViewHolder extends ClickableViewHolder {
 
+    private static final int MAX_NAME_LENGHT = 25;
+
     private ImageView avatar;
     private TextView name;
     private TextView latestMessage;
@@ -53,7 +55,12 @@ public class ThreadViewHolder extends ClickableViewHolder {
 
     public void setThread(final Conversation conversation) {
         final Recipient recipient = conversation.getRecipient();
-        this.name.setText(recipient.getDisplayName());
+
+        final String displayName = recipient.getDisplayName().length() > MAX_NAME_LENGHT
+                ? String.format("%s...", recipient.getDisplayName().substring(0, MAX_NAME_LENGHT))
+                : recipient.getDisplayName();
+        this.name.setText(displayName);
+
         this.unreadCounter.setText(getNumberOfUnread(conversation));
         final String creationTime = getLastMessageCreationTime(conversation);
         this.time.setText(creationTime);

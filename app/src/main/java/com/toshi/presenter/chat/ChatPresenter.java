@@ -86,6 +86,7 @@ public final class ChatPresenter implements Presenter<ChatActivity> {
     private static final int CAPTURE_IMAGE = 4;
     private static final int CONFIRM_ATTACHMENT = 5;
     private static final String CAPTURE_FILENAME = "caputureImageFilename";
+    private static final int MAX_NAME_LENGHT = 20;
 
     private boolean firstViewAttachment = true;
     private ChatActivity activity;
@@ -545,7 +546,11 @@ public final class ChatPresenter implements Presenter<ChatActivity> {
     }
 
     private void initToolbar() {
-        this.activity.getBinding().title.setText(this.recipient.getDisplayName());
+        final String displayName = this.recipient.getDisplayName().length() > MAX_NAME_LENGHT
+                ? String.format("%s...", this.recipient.getDisplayName().substring(0, MAX_NAME_LENGHT))
+                : recipient.getDisplayName();
+        this.activity.getBinding().title.setText(displayName);
+
         this.activity.getBinding().closeButton.setOnClickListener(this::handleBackButtonClicked);
         this.activity.getBinding().avatar.setOnClickListener(__ -> viewRemoteUserProfile());
         ImageUtil.load(this.recipient.getAvatar(), this.activity.getBinding().avatar);

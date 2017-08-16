@@ -56,6 +56,8 @@ import rx.subscriptions.CompositeSubscription;
 public final class SettingsPresenter implements
         Presenter<SettingsFragment> {
 
+    private static final int MAX_NAME_LENGHT = 25;
+
     private User localUser;
     private SettingsFragment fragment;
     private CompositeSubscription subscriptions;
@@ -264,8 +266,15 @@ public final class SettingsPresenter implements
             return;
         }
 
-        this.fragment.getBinding().name.setText(this.localUser.getDisplayName());
-        this.fragment.getBinding().username.setText(this.localUser.getUsername());
+        final String displayName = this.localUser.getDisplayName().length() > MAX_NAME_LENGHT
+                ? String.format("%s...", this.localUser.getDisplayName().substring(0, git MAX_NAME_LENGHT))
+                : this.localUser.getDisplayName();
+        this.fragment.getBinding().name.setText(displayName);
+
+        final String username = this.localUser.getUsername().length() > MAX_NAME_LENGHT
+                ? String.format("%s...", this.localUser.getUsername().substring(0, MAX_NAME_LENGHT))
+                : this.localUser.getUsername();
+        this.fragment.getBinding().username.setText(username);
         ImageUtil.load(this.localUser.getAvatar(), this.fragment.getBinding().avatar);
     }
 

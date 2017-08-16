@@ -30,6 +30,8 @@ import com.toshi.view.custom.StarRatingView;
 
 public class ContactViewHolder extends ClickableViewHolder {
 
+    private static final int MAX_NAME_LENGHT = 25;
+
     private ImageView avatar;
     private TextView name;
     private TextView username;
@@ -46,8 +48,16 @@ public class ContactViewHolder extends ClickableViewHolder {
     }
 
     public void setUser(final User user) {
-        this.name.setText(user.getDisplayName());
-        this.username.setText(user.getUsername());
+        final String displayName = user.getDisplayName().length() > MAX_NAME_LENGHT
+                ? String.format("%s...", user.getDisplayName().substring(0, MAX_NAME_LENGHT))
+                : user.getDisplayName();
+        this.name.setText(displayName);
+
+        final String username = user.getUsername().length() > MAX_NAME_LENGHT
+                ? String.format("%s...", user.getUsername().substring(0, MAX_NAME_LENGHT))
+                : user.getUsername();
+        this.username.setText(username);
+
         ImageUtil.load(user.getAvatar(), this.avatar);
         this.ratingView.setStars(user.getAverageRating());
         final String reviewCount = BaseApplication.get().getString(R.string.parentheses, user.getReviewCount());
