@@ -21,6 +21,7 @@
     <dimen name="messageListRightMargin">32dp</dimen>
     <dimen name="textBubbleHalfPadding">8dp</dimen>
     <dimen name="bubbleMargin">8dp</dimen>
+    <dimen name="textBubbleTopMargin">4dp</dimen>
 
     <dimen name="radiusSize">6dp</dimen>
 
