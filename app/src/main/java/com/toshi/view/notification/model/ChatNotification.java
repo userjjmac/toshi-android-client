@@ -36,6 +36,7 @@ import com.toshi.view.custom.CropCircleTransformation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import rx.Completable;
@@ -44,6 +45,7 @@ public class ChatNotification {
 
     public static final String DEFAULT_TAG = "unknown";
 
+    private String id;
     private final Recipient sender;
     private final ArrayList<String> messages;
     private List<String> lastFewMessages;
@@ -54,6 +56,7 @@ public class ChatNotification {
     public ChatNotification(final Recipient sender) {
         this.sender = sender;
         this.messages = new ArrayList<>();
+        generateId();
         generateLatestMessages(this.messages);
     }
 
@@ -76,6 +79,16 @@ public class ChatNotification {
         final int start = Math.max(end - MAXIMUM_NUMBER_OF_SHOWN_MESSAGES, 0);
         this.lastFewMessages = messages.subList(start, end);
 
+    }
+
+    private void generateId() {
+        this.id = this.sender == null
+                ? UUID.randomUUID().toString()
+                : this.sender.getThreadId();
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     public String getTag() {

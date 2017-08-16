@@ -18,18 +18,21 @@
 package com.toshi.view.notification;
 
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.net.Uri;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.toshi.R;
 import com.toshi.crypto.signal.model.DecryptedSignalMessage;
 import com.toshi.model.local.Recipient;
-import com.toshi.model.sofa.SofaMessage;
 import com.toshi.model.local.User;
 import com.toshi.model.sofa.SofaAdapters;
+import com.toshi.model.sofa.SofaMessage;
 import com.toshi.model.sofa.SofaType;
 import com.toshi.util.LogUtil;
 import com.toshi.view.BaseApplication;
@@ -126,24 +129,26 @@ public class ChatNotificationManager {
     }
 
     private static void showChatNotification(final ChatNotification chatNotification) {
-        final NotificationCompat.Style style = generateNotificationStyle(chatNotification);
-        final CharSequence contextText = chatNotification.getLastMessage();
-
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            createNotificationChannel(chatNotification);
+        }
 
         final int lightOnRate = 1000 * 2;
         final int lightOffRate = 1000 * 15;
         final int notificationColor = ContextCompat.getColor(BaseApplication.get(), R.color.colorPrimary);
         final Uri notificationSound = Uri.parse("android.resource://" + BaseApplication.get().getPackageName() + "/" + R.raw.notification);
+        final NotificationCompat.Style style = generateNotificationStyle(chatNotification);
+        final CharSequence contextText = chatNotification.getLastMessage();
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(BaseApplication.get())
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(BaseApplication.get(), chatNotification.getId())
                 .setSmallIcon(R.drawable.ic_notification)
                 .setLargeIcon(chatNotification.getLargeIcon())
                 .setContentTitle(chatNotification.getTitle())
                 .setContentText(contextText)
                 .setTicker(contextText)
                 .setAutoCancel(true)
-                .setColor(notificationColor)
                 .setSound(notificationSound)
+                .setColor(notificationColor)
                 .setLights(notificationColor, lightOnRate, lightOffRate)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setStyle(style)
@@ -160,6 +165,27 @@ public class ChatNotificationManager {
 
         final NotificationManager manager = (NotificationManager) BaseApplication.get().getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(chatNotification.getTag(), 1, builder.build());
+    }
+
+    @RequiresApi(api = 26)
+    private static void createNotificationChannel(final ChatNotification chatNotification) {
+        final int notificationColor = ContextCompat.getColor(BaseApplication.get(), R.color.colorPrimary);
+        final Uri notificationSound = Uri.parse("android.resource://" + BaseApplication.get().getPackageName() + "/" + R.raw.notification);
+        final CharSequence channelName = chatNotification.getTitle();
+
+        final NotificationChannel notificationChannel = new NotificationChannel(chatNotification.getId(), channelName, NotificationManager.IMPORTANCE_HIGH);
+        notificationChannel.enableLights(true);
+        notificationChannel.setLightColor(notificationColor);
+        notificationChannel.enableVibration(true);
+        notificationChannel.setSound(notificationSound,
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setFlags(AudioAttributes.USAGE_NOTIFICATION)
+                        .build()
+        );
+
+        final NotificationManager manager = (NotificationManager) BaseApplication.get().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.createNotificationChannel(notificationChannel);
     }
 
     private static NotificationCompat.Style generateNotificationStyle(final ChatNotification chatNotification) {
